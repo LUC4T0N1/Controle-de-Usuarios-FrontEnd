@@ -1,0 +1,54 @@
+<button type="button" class="btn-voltar" (click)="voltar()">← Voltar</button>
+<div class="usuarios-lista scrollavel">
+<div class="usuarios-container">
+  <div class="top-bar">
+    <h2 class="titulo-branco">Lista de Usuários</h2>
+    <button class="btn-criar" (click)="irParaCriacaoDeUsuarios()">+ Criar Novo Usuário</button>
+  </div>
+
+  <div class="ordenacao">
+    <label for="ordenacao-select">Ordenar por:</label>
+    <select id="ordenacao-select" [(ngModel)]="ordenacaoSelecionada" (change)="carregarUsuarios()">
+      <option [value]="1">Nome</option>
+      <option [value]="2">Email</option>
+      <option [value]="3">Data de Criação</option>
+    </select>
+  </div>
+
+  <div class="usuarios-lista">
+    <div class="usuario-card" *ngFor="let usuario of usuarios">
+      <div class="usuario-card-content">
+        <div class="usuario-info">
+          <h3>{{ usuario.nome || 'Sem nome informado' }}</h3>
+          <div class="info-linha">
+            <span><strong>ID:</strong> {{ usuario.id }}</span>
+            <span><strong>Email:</strong> {{ usuario.email }}</span>
+            <span><strong>Role:</strong> {{ usuario.role }}</span>
+          </div>
+        </div>
+
+        <div class="botoes-vertical">
+          <button class="btn-editar" (click)="editarUsuario(usuario.id)">Editar</button>
+          <button class="btn-excluir" (click)="removerUsuario(usuario.id)">Excluir</button>
+        </div>
+      </div>
+
+      <div class="enderecos">
+        <div *ngIf="usuario.enderecos.length === 0">Sem endereço</div>
+        <ul *ngIf="usuario.enderecos.length > 0">
+          <li *ngFor="let endereco of usuario.enderecos">
+            {{ endereco.logradouro }}, {{ endereco.numero }} - {{ endereco.bairro }},
+            {{ endereco.cidade }} - {{ endereco.estado }} | CEP: {{ endereco.cep }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="paginacao">
+    <button (click)="paginaAnterior()" [disabled]="paginaAtual === 0">Anterior</button>
+    <span class="titulo-branco">Página {{ paginaAtual + 1 }} de {{ totalPaginas }}</span>
+    <button (click)="proximaPagina()" [disabled]="paginaAtual >= totalPaginas - 1">Próxima</button>
+  </div>
+</div>
+</div>

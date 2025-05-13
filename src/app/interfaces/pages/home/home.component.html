@@ -1,0 +1,40 @@
+<div class="tela-bem-vindo">
+  <button class="btn-sair" (click)="deslogar()">Sair</button>
+
+  <div class="topo-direito">
+    <div class="permissao" *ngIf="roleUsuario">
+      Permissão: {{ roleUsuario }}
+    </div>
+    <button *ngIf="isAdmin()" class="btn-usuarios" (click)="irParaUsuarios()">Gerenciar Usuários</button>
+  </div>
+
+  <div class="usuarios-container">
+
+  <h1 *ngIf="emailUsuario">Bem-vindo {{ usuario.nome }}!</h1>
+
+  <div class="usuario-card">
+      <div class="usuario-card-content">
+        <div class="usuario-info">
+          <h3>{{ usuario.nome || 'Sem nome informado' }}</h3>
+          <div class="info-linha">
+            <span><strong>Email:</strong> {{ usuario.email }}</span>
+          </div>
+        </div>
+
+        <div class="botoes-vertical">
+          <button class="btn-editar" (click)="editarUsuario(usuario.id)">Editar</button>
+        </div>
+      </div>
+
+      <div class="enderecos">
+        <div *ngIf="usuario.enderecos.length === 0">Sem endereço</div>
+        <ul *ngIf="usuario.enderecos.length > 0">
+          <li *ngFor="let endereco of usuario.enderecos">
+            {{ endereco.logradouro }}, {{ endereco.numero }} - {{ endereco.bairro }},
+            {{ endereco.cidade }} - {{ endereco.estado }} | CEP: {{ endereco.cep }}
+          </li>
+        </ul>
+      </div>
+    </div>
+    </div>
+</div>

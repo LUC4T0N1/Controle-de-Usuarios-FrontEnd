@@ -1,0 +1,37 @@
+<div class="tela-wrapper">
+  <div class="cadastro-container">
+    <h2>Crie sua conta</h2>
+    <form [formGroup]="form" (ngSubmit)="cadastrar()">
+      <input
+        formControlName="nome"
+        placeholder="Nome completo"
+        [ngClass]="{ 'input-error': campoInvalido('nome') }"
+      />
+      <small *ngIf="campoInvalido('nome')" class="error-message">O nome é obrigatório.</small>
+
+      <input
+        formControlName="email"
+        placeholder="Email"
+        [ngClass]="{ 'input-error': campoInvalido('email') }"
+      />
+      <small *ngIf="campoInvalido('email')" class="error-message">
+        {{ form.get('email')?.hasError('required') ? 'O email é obrigatório.' : 'Formato de email inválido.' }}
+      </small>
+
+      <input
+        formControlName="senha"
+        type="password"
+        placeholder="Senha"
+        [ngClass]="{ 'input-error': campoInvalido('senha') }"
+      />
+      <small *ngIf="campoInvalido('senha')" class="error-message">
+        <ng-container *ngIf="form.get('senha')?.hasError('required')">A senha é obrigatória.</ng-container>
+        <ng-container *ngIf="form.get('senha')?.hasError('minlength')">Mínimo de 5 caracteres.</ng-container>
+        <ng-container *ngIf="form.get('senha')?.hasError('pattern')">Deve conter ao menos um número.</ng-container>
+      </small>
+
+      <button type="submit">Cadastrar</button>
+      <p *ngIf="erro" class="mensagem-erro">{{ erro }}</p>
+    </form>
+  </div>
+</div>

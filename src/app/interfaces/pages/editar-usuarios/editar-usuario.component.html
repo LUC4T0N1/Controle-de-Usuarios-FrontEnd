@@ -1,0 +1,40 @@
+<button type="button" class="btn-voltar" (click)="voltar()">← Voltar</button>
+<form [formGroup]="form" (ngSubmit)="salvar()" class="form-container">
+  <h2>Edição de Usuário</h2>
+  
+  <div class="input-row">
+  <div class="input-item">
+    <input formControlName="nome" id="nome" placeholder="Nome" [ngClass]="{'input-error': campoInvalido('nome')}" />
+    <small *ngIf="campoInvalido('nome')" class="error-message">O nome é obrigatório.</small>
+  </div>
+
+  <div class="input-item">
+    <input formControlName="email" id="email" placeholder="Email" [ngClass]="{'input-error': campoInvalido('email')}" />
+    <small *ngIf="campoInvalido('email')" class="error-message">Informe um email válido.</small>
+  </div>
+  </div>
+
+  <div class="input-row">
+    <div class="input-item">
+      <input formControlName="senha" type="password" placeholder="Senha" id="senha" />
+    </div>
+
+    <div class="input-item">
+      <select formControlName="role" id="role">
+        <option value="USUARIO_COMUM">Usuário Comum</option>
+        <option value="ADMIN">Administrador</option>
+      </select>
+    </div>
+  </div>
+
+  <div formArrayName="enderecos" class="enderecos-container">
+    <div *ngFor="let endereco of enderecos.controls; let i = index" class="endereco-card">
+      <app-endereco-form [form]="getEnderecoFormGroup(i)"></app-endereco-form>
+      <button type="button" class="btn-remover" (click)="removerEndereco(i)">Remover Endereço</button>
+    </div>
+  </div>
+
+  <button type="button" class="btn-adicionar" (click)="adicionarEndereco()">Adicionar Endereço</button>
+
+  <button type="submit" class="btn-salvar">Salvar</button>
+</form>

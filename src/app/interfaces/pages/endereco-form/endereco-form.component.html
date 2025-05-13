@@ -1,0 +1,55 @@
+<div [formGroup]="form" class="endereco-container">
+  <div class="input-row">
+    <div class="input-item">
+      <input formControlName="cep" (blur)="buscarCep()" placeholder="CEP" id="cep" />
+      <small *ngIf="campoInvalido('cep')" class="error-message">
+        O CEP é obrigatório.
+      </small>
+    </div>
+
+    <div class="input-item">
+      <input formControlName="logradouro" placeholder="Logradouro" id="logradouro" />
+      <small *ngIf="campoInvalido('logradouro')" class="error-message">
+        O logradouro é obrigatório.
+      </small>
+    </div>
+  </div>
+
+  <div class="input-row">
+    <div class="input-item">
+      <input formControlName="numero" placeholder="Número" id="numero" />
+      <small *ngIf="campoInvalido('numero')" class="error-message">
+        O número é obrigatório e deve ser um número válido.
+      </small>
+    </div>
+
+    <div class="input-item">
+      <input formControlName="complemento" placeholder="Complemento" id="complemento" />
+    </div>
+  </div>
+
+  <div class="input-row">
+    <div class="input-item">
+      <input formControlName="bairro" placeholder="Bairro" id="bairro" />
+      <small *ngIf="campoInvalido('bairro')" class="error-message">
+        O bairro é obrigatório.
+      </small>
+    </div>
+
+    <div class="input-item">
+      <input formControlName="cidade" placeholder="Cidade" id="cidade" />
+      <small *ngIf="campoInvalido('cidade')" class="error-message">
+        A cidade é obrigatória.
+      </small>
+    </div>
+  </div>
+
+  <div class="input-row">
+    <div class="input-item">
+      <input formControlName="estado" placeholder="Estado" id="estado" />
+      <small *ngIf="campoInvalido('estado')" class="error-message">
+        O estado é obrigatório.
+      </small>
+    </div>
+  </div>
+</div>
