@@ -7,6 +7,7 @@ import { EnderecoDto } from '@app/domain/entities/dto/endereco.dto';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EnderecoFormComponent } from '../endereco-form/endereco-form.component';
+import { TokenService } from '@app/infrastructure/services/token.service';
 
 @Component({
   selector: 'app-editar-usuario',
@@ -16,6 +17,7 @@ import { EnderecoFormComponent } from '../endereco-form/endereco-form.component'
 
 })
 export class EditarUsuarioComponent implements OnInit {
+  roleUsuario: string | null = null;
   form!: FormGroup;
   usuarioId!: number;
 
@@ -23,10 +25,13 @@ export class EditarUsuarioComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private usuarioService: UsuarioService,
-    private router: Router
+    private router: Router,
+    private tokenService: TokenService
   ) {}
 
+
   ngOnInit() {
+    this.roleUsuario = this.tokenService.obterRoleDoUsuario();
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.usuarioId = +id;
@@ -110,4 +115,9 @@ campoInvalido(campo: string): boolean {
   const control = this.form.get(campo);
   return !!(control && control.invalid && control.touched);
 }
+
+ isAdmin(): boolean {
+    return this.roleUsuario === 'ADMIN';
+  }
+
 }

@@ -19,7 +19,7 @@
       <input formControlName="senha" type="password" placeholder="Senha" id="senha" />
     </div>
 
-    <div class="input-item">
+    <div *ngIf="isAdmin()" class="input-item">
       <select formControlName="role" id="role">
         <option value="USUARIO_COMUM">Usuário Comum</option>
         <option value="ADMIN">Administrador</option>
